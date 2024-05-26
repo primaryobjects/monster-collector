@@ -3,7 +3,7 @@ Monster Collector
 
 A simple example of a VSCode C# .NET 8.0 web application using MVC, Razor, EntityFramework, and Sqlite to store a list of monsters.
 
-The table of monsters utilizes the `contenteditable` HTML attribute to inline editing of monster details. An ajax call triggers the save to an API method on the backend.
+The table of monsters utilizes the `contenteditable` HTML attribute to inline editing of monster details. An ajax [call](Monster%20Collector/wwwroot/js/site.js) triggers the save to an API method on the backend.
 
 ![Monster Collector screenshot](screenshot.png)
 
