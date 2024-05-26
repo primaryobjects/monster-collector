@@ -1,0 +1,35 @@
+﻿@page
+@model IndexModel
+@{
+    ViewData["Title"] = "Monster Collector";
+}
+
+<div class="text-center">
+    <h1 class="display-4">Monster Collector</h1>
+    <p id="message" style="min-height: 25px; color: green;"></p>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Health</th>
+                <th>Attack</th>
+                <th>Defense</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var monster in Model.Monsters)
+            {
+                <tr data-id="@monster.Id">
+                    <td contenteditable="true">@monster.Name</td>
+                    <td contenteditable="true">@monster.Health</td>
+                    <td contenteditable="true">@monster.Attack</td>
+                    <td contenteditable="true">@monster.Defense</td>
+                    <td>
+                        <button class="saveButton">Save</button>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -1,0 +1,59 @@
+# .NET Core
+project.lock.json
+project.fragment.lock.json
+*.nuget.props
+*.nuget.targets
+*.user
+*.suo
+*.userprefs
+*.sln.docstates
+*.sln.ide/
+
+# Visual Studio Code
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.slnx
+*.suo
+*.user
+*.userosscache
+*.sln.ide/
+
+# Build results
+[Dd]ebug/
+[Dd]ebugPublic/
+[Rr]elease/
+[Rr]eleases/
+x64/
+x86/
+build/
+bld/
+[Bb]in/
+[Oo]bj/
+[Oo]ut/
+msbuild.log
+msbuild.err
+msbuild.wrn
+
+# Packages
+# it's better to unpack these files and commit the raw source
+# git has its own built in compression methods
+*.7z
+*.dmg
+*.gz
+*.iso
+*.jar
+*.rar
+*.tar
+*.zip
+
+# Logs
+*.log
+
+# Others
+*.swp
+*.*~
+project.lock.json
+.DS_Store
+Thumbs.db
