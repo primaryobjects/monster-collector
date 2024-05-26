@@ -43,8 +43,10 @@ public static class MonsterManager
         return monster;
     }
 
-    public static void Update(Monster monster)
+    public static Monster? Update(Monster monster)
     {
+        Monster? result = null;
+
         using (var context = new MonsterContext())
         {
             var existingMonster = context.Monsters.Find(monster.Id);
@@ -55,8 +57,12 @@ public static class MonsterManager
                 existingMonster.Attack = monster.Attack;
                 existingMonster.Defense = monster.Defense;
 
+                result = existingMonster;
+
                 context.SaveChanges();
             }
         }
+
+        return result;
     }
 }

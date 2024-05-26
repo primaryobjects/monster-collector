@@ -8,24 +8,12 @@ public class MonsterController : ControllerBase
     [HttpPut("{id}")]
     public IActionResult UpdateMonster(string id, Monster monster)
     {
-        Monster existingMonster = MonsterManager.Find(id);
-        if (existingMonster != null)
-        {
-            existingMonster.Name = monster.Name;
-            existingMonster.Health = monster.Health;
-            existingMonster.Attack = monster.Attack;
-            existingMonster.Defense = monster.Defense;
+        monster.Id = id;
 
-            // Save the changes...
-            MonsterManager.Update(existingMonster);
+        // Save the changes.
+        var result = MonsterManager.Update(monster);
 
-            // Return a success result...
-            return new JsonResult(existingMonster);
-        }
-        else
-        {
-            return NotFound();
-        }
+        return result != null ? new JsonResult(result) : NotFound();
     }
 
     [HttpGet("{id}")]
