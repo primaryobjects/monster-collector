@@ -1,104 +1,28 @@
-using System;
+using System.Linq;
 using System.Data.SQLite;
 
+/// <summary>
+/// 1. Open a Terminal in VSCode
+/// 2. dotnet add package Microsoft.EntityFrameworkCore.Design
+/// 3. dotnet add package Microsoft.EntityFrameworkCore.Sqlite
+/// 3. dotnet tool install --global dotnet-ef
+/// 4. dotnet ef migrations add InitialCreate
+/// 5. dotnet ef database update
+///
+/// Note, if you want to re-generate the initial seeded database:
+/// 1. Delete the folder Migrations.
+/// 2. dotnet ef migrations add InitialCreate
+/// 3. dotnet ef database update
+/// </summary>
 public static class MonsterManager
 {
-    private static string _connectionString = "data source=MonsterManager.sqlite";
-
-    public static bool Exists()
-    {
-        bool result = false;
-
-        using (SQLiteConnection conn = new SQLiteConnection(_connectionString))
-        {
-            conn.Open();
-
-            string sql = "SELECT name FROM sqlite_master WHERE type='table' AND name='Monsters';";
-            using (SQLiteCommand command = new SQLiteCommand(sql, conn))
-            {
-                result = command.ExecuteScalar() != null;
-            }
-
-            conn.Close();
-        }
-
-        return result;
-    }
-
-    public static IEnumerable<Monster> CreateDatabase()
-    {
-        List<Monster> monsters = new List<Monster>();
-
-        if (!Exists())
-        {
-            using (SQLiteConnection conn = new SQLiteConnection(_connectionString))
-            {
-                conn.Open();
-
-                string sql = "CREATE TABLE Monsters (Id VARCHAR(32) PRIMARY KEY, Name VARCHAR(20), Health INT, Attack INT, Defense INT)";
-                using (SQLiteCommand command = new SQLiteCommand(sql, conn))
-                {
-                    command.ExecuteNonQuery();
-                }
-
-                sql = "INSERT INTO Monsters (Id, Name, Health, Attack, Defense) VALUES (@Id, @Name, @Health, @Attack, @Defense)";
-                using (SQLiteCommand command = new SQLiteCommand(sql, conn))
-                {
-                    for (int i=0; i<10; i++)
-                    {
-                        Monster monster = new Monster();
-
-                        command.Parameters.AddWithValue("@Id", monster.Id);
-                        command.Parameters.AddWithValue("@Name", monster.Name);
-                        command.Parameters.AddWithValue("@Health", monster.Health);
-                        command.Parameters.AddWithValue("@Attack", monster.Attack);
-                        command.Parameters.AddWithValue("@Defense", monster.Defense);
-                        command.ExecuteNonQuery();
-                        command.Parameters.Clear();
-
-                        monsters.Add(monster);
-                    }
-                }
-
-                conn.Close();
-            }
-        }
-        else
-        {
-            monsters = MonsterManager.Load();
-        }
-
-        return monsters;
-    }
-
     public static List<Monster> Load()
     {
-        List<Monster> monsters = new List<Monster>();
+        List<Monster> monsters;
 
-        using (SQLiteConnection conn = new SQLiteConnection(_connectionString))
+        using (var context = new MonsterContext())
         {
-            conn.Open();
-
-            string sql = "SELECT * FROM Monsters";
-
-            using (SQLiteCommand command = new SQLiteCommand(sql, conn))
-            {
-                using (SQLiteDataReader reader = command.ExecuteReader())
-                {
-                    while (reader.Read())
-                    {
-                        monsters.Add(new Monster
-                            {
-                                Id = reader["Id"] == DBNull.Value ? null : reader["Id"].ToString(),
-                                Name = reader["Name"].ToString(),
-                                Health = Convert.ToInt32(reader["Health"]),
-                                Attack = Convert.ToInt32(reader["Attack"]),
-                                Defense = Convert.ToInt32(reader["Defense"])
-                            }
-                        );
-                    }
-                }
-            }
+            monsters = context.Monsters.ToList();
         }
 
         return monsters;
@@ -108,31 +32,12 @@ public static class MonsterManager
     {
         Monster? monster = null;
 
-        using (SQLiteConnection conn = new SQLiteConnection(_connectionString))
+        using (var context = new MonsterContext())
         {
-            conn.Open();
-
-            string sql = "SELECT * FROM Monsters WHERE Id = @Id";
-
-            using (SQLiteCommand command = new SQLiteCommand(sql, conn))
-            {
-                command.Parameters.AddWithValue("@Id", id);
-
-                using (SQLiteDataReader reader = command.ExecuteReader())
-                {
-                    if (reader.Read())
-                    {
-                        monster = new Monster
-                        {
-                            Id = reader["Id"] == DBNull.Value ? null : reader["Id"].ToString(),
-                            Name = reader["Name"].ToString(),
-                            Health = Convert.ToInt32(reader["Health"]),
-                            Attack = Convert.ToInt32(reader["Attack"]),
-                            Defense = Convert.ToInt32(reader["Defense"])
-                        };
-                    }
-                }
-            }
+            monster = context.Monsters.Find(id);
+            /*monster = (from m in context.Monsters
+                       where m.Id == id
+                       select m).FirstOrDefault();*/
         }
 
         return monster;
@@ -140,23 +45,18 @@ public static class MonsterManager
 
     public static void Update(Monster monster)
     {
-        using (SQLiteConnection conn = new SQLiteConnection(_connectionString))
+        using (var context = new MonsterContext())
         {
-            conn.Open();
-
-            string sql = "UPDATE Monsters SET Name = @Name, Health = @Health, Attack = @Attack, Defense = @Defense WHERE Id = @Id";
-            using (SQLiteCommand command = new SQLiteCommand(sql, conn))
+            var existingMonster = context.Monsters.Find(monster.Id);
+            if (existingMonster != null)
             {
-                command.Parameters.AddWithValue("@Id", monster.Id);
-                command.Parameters.AddWithValue("@Name", monster.Name);
-                command.Parameters.AddWithValue("@Health", monster.Health);
-                command.Parameters.AddWithValue("@Attack", monster.Attack);
-                command.Parameters.AddWithValue("@Defense", monster.Defense);
+                existingMonster.Name = monster.Name;
+                existingMonster.Health = monster.Health;
+                existingMonster.Attack = monster.Attack;
+                existingMonster.Defense = monster.Defense;
 
-                command.ExecuteNonQuery();
+                context.SaveChanges();
             }
-
-            conn.Close();
         }
     }
 }
