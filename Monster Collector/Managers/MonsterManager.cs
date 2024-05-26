@@ -5,9 +5,9 @@ using System.Data.SQLite;
 /// 1. Open a Terminal in VSCode
 /// 2. dotnet add package Microsoft.EntityFrameworkCore.Design
 /// 3. dotnet add package Microsoft.EntityFrameworkCore.Sqlite
-/// 3. dotnet tool install --global dotnet-ef
-/// 4. dotnet ef migrations add InitialCreate
-/// 5. dotnet ef database update
+/// 4. dotnet tool install --global dotnet-ef
+/// 5. dotnet ef migrations add InitialCreate
+/// 6. dotnet ef database update
 ///
 /// Note, if you want to re-generate the initial seeded database:
 /// 1. Delete the folder Migrations.
