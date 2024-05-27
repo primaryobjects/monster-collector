@@ -1,3 +1,4 @@
+using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 
@@ -6,8 +7,22 @@ public class DatabaseContext : DbContext
     public DbSet<Monster> Monsters { get; set; }
     public DbSet<AuditLog> AuditLogs { get; set; }
 
+    public DatabaseContext()
+    {
+        // Check if the database table already exists.
+        if (Database.EnsureCreated())
+        {
+            // Populate the database.
+            InitializeMonsters();
+        }
+    }
+
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     {
+        // Load environment variables.
+        Env.Load();
+
+        // Configure connection string.
         optionsBuilder.UseSqlite("data source=MonsterManager.sqlite");
     }
 
@@ -23,16 +38,38 @@ public class DatabaseContext : DbContext
 
         // Setup the audit log for serialization of Dictionary types.
         InitializeAuditLog(builder);
+    }
+
+    private void InitializeMonsters()
+    {
+        Console.WriteLine("Generating monsters for database.");
+
+        if (!CohereManager.IsValid())
+        {
+            Console.WriteLine("Missing CohereApiKey in .env file. Register an API key at https://dashboard.cohere.com/api-keys");
+        }
+
+        List<string> existingNames = new List<string>();
 
         // Generate monsters.
         var monsters = new List<Monster>();
         for (int i=0; i<10; i++)
         {
-            monsters.Add(new Monster());
+            var monster = new Monster();
+            if (CohereManager.IsValid())
+            {
+                // Generate a name and description using an LLM service, providing the list of already used names to avoid duplicates.
+                monster.GenerateNameDescription(existingNames);
+            }
+            monsters.Add(monster);
+
+            // Prevent duplicate names.
+            existingNames.Add(monster.Name);
         }
 
         // Add the monsters to the database.
-        builder.Entity<Monster>().HasData(monsters);
+        Monsters.AddRange(monsters);
+        SaveChanges();
     }
 
     private void InitializeAuditLog(ModelBuilder builder)
@@ -53,6 +90,8 @@ public class DatabaseContext : DbContext
 
     public override int SaveChanges()
     {
+        var auditEntries = new List<AuditLog>();
+
         foreach (var entry in ChangeTracker.Entries())
         {
             if (entry.State == EntityState.Added || entry.State == EntityState.Modified || entry.State == EntityState.Deleted)
@@ -67,9 +106,11 @@ public class DatabaseContext : DbContext
                     ChangedColumns = entry.State == EntityState.Modified ? AuditManager.GetChangedColumns(entry) : new List<string>()
                 };
 
-                AuditLogs.Add(auditEntry);
+                auditEntries.Add(auditEntry);
             }
         }
+
+        AuditLogs.AddRange(auditEntries);
 
         return base.SaveChanges();
     }

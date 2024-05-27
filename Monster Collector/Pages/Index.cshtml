@@ -21,7 +21,7 @@
             @foreach (var monster in Model.Monsters)
             {
                 <tr data-id="@monster.Id" class='hover-tooltip'>
-                    <td contenteditable="true">@monster.Name</td>
+                    <td contenteditable="true" title="@monster.Description">@monster.Name</td>
                     <td contenteditable="true">@monster.Health</td>
                     <td contenteditable="true">@monster.Attack</td>
                     <td contenteditable="true">@monster.Defense</td>

@@ -57,3 +57,4 @@ msbuild.wrn
 project.lock.json
 .DS_Store
 Thumbs.db
+*.env
