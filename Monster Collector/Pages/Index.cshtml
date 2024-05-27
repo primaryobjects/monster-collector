@@ -20,7 +20,7 @@
         <tbody>
             @foreach (var monster in Model.Monsters)
             {
-                <tr data-id="@monster.Id">
+                <tr data-id="@monster.Id" class='hover-tooltip'>
                     <td contenteditable="true">@monster.Name</td>
                     <td contenteditable="true">@monster.Health</td>
                     <td contenteditable="true">@monster.Attack</td>
@@ -32,4 +32,26 @@
             }
         </tbody>
     </table>
+    <!-- Add a modal or tooltip element to your HTML where the audit logs will be displayed -->
+    <div id="auditLogModal" class="modal">
+        <div class="modal-content">
+            <span class="close">×</span>
+            <h2>Audit Log History</h2>
+            <table id="auditLogTable" class="table">
+                <thead>
+                    <tr>
+                        <th>Action Type</th>
+                        <th>Column Changed</th>
+                        <th>Old Value</th>
+                        <th>New Value</th>
+                        <th>Date Changed</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Audit log entries will be populated here -->
+                </tbody>
+            </table>
+        </div>
+    </div>
+
 </div>

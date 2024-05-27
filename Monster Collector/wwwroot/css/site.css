@@ -16,3 +16,18 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+/* CSS for delayed hover effect */
+.modal {
+  display: none;
+  transition: visibility 0s, opacity 0.5s linear;
+  transition-delay: 2s; /* Adjust the delay as needed */
+}
+
+.modal-content {
+  transition-delay: 0s; /* No delay when leaving the modal */
+}
+
+.hover-tooltip {
+  cursor: pointer;
+}

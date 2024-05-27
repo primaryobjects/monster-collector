@@ -20,7 +20,7 @@ public static class MonsterManager
     {
         List<Monster> monsters;
 
-        using (var context = new MonsterContext())
+        using (var context = new DatabaseContext())
         {
             monsters = context.Monsters.ToList();
         }
@@ -32,7 +32,7 @@ public static class MonsterManager
     {
         Monster? monster = null;
 
-        using (var context = new MonsterContext())
+        using (var context = new DatabaseContext())
         {
             monster = context.Monsters.Find(id);
             /*monster = (from m in context.Monsters
@@ -47,7 +47,7 @@ public static class MonsterManager
     {
         Monster? result = null;
 
-        using (var context = new MonsterContext())
+        using (var context = new DatabaseContext())
         {
             var existingMonster = context.Monsters.Find(monster.Id);
             if (existingMonster != null)
