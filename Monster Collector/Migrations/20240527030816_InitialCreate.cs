@@ -52,16 +52,16 @@ namespace Monster_Collector.Migrations
                 columns: new[] { "Id", "Attack", "Defense", "Description", "Health", "Name" },
                 values: new object[,]
                 {
-                    { "06706ea4-5fa8-40cb-91b7-f316ad4011e5", 27, 19, "A big scary Ogre", 76, "Ogre" },
-                    { "6bfa80d7-c5d6-427e-8dd6-4370bea8ee94", 34, 6, "A big scary Ogre", 69, "Ogre" },
-                    { "8f2341ef-aa83-4a93-81fd-31962adda1f4", 35, 21, "A big scary Goblin", 80, "Goblin" },
-                    { "9546bf54-f4c5-48fd-aaf9-df59edca3af1", 45, 16, "A big scary Troll", 82, "Troll" },
-                    { "a390051d-b53e-4a12-9c5c-d257024f37ab", 40, 8, "A big scary Troll", 81, "Troll" },
-                    { "b69d832e-b04a-49e1-a0d7-a6885eb798d2", 10, 12, "A big scary Troll", 59, "Troll" },
-                    { "cc7c19d6-f08b-419e-80e8-1cfb05aa8d22", 21, 19, "A big scary Dragon", 59, "Dragon" },
-                    { "df2bf1af-e150-443b-b312-af5a31524939", 32, 5, "A big scary Ogre", 77, "Ogre" },
-                    { "e7e03c0d-270a-4c5a-9bfc-69a534efee85", 35, 6, "A big scary Demon", 51, "Demon" },
-                    { "fb0faf97-9751-4ac2-ab74-85a51081d186", 37, 13, "A big scary Demon", 78, "Demon" }
+                    { "0191aef6-f7e8-45e1-9212-564e6b4d2eb5", 45, 17, "A big scary Goblin", 89, "Goblin" },
+                    { "5a6adbc0-3d93-48a1-8170-6c955bf10a53", 50, 24, "A big scary Troll", 90, "Troll" },
+                    { "6bc823a2-793f-4445-ae45-9a839fe6089a", 32, 23, "A big scary Demon", 45, "Demon" },
+                    { "70509de8-0ce9-43fb-92b9-5cd9027933ff", 25, 9, "A big scary Dragon", 80, "Dragon" },
+                    { "7e26a7e3-d516-43f2-ad46-79360aec5fb0", 26, 7, "A big scary Dragon", 68, "Dragon" },
+                    { "bf9f5481-2715-40cb-9300-d1d8cf8af261", 47, 20, "A big scary Goblin", 94, "Goblin" },
+                    { "c14e59db-1478-49c7-80a1-9e5850771d8d", 43, 25, "A big scary Ogre", 91, "Ogre" },
+                    { "cc73bc38-e059-4b73-bbad-d89a42dd8bba", 26, 21, "A big scary Dragon", 33, "Dragon" },
+                    { "d0012337-b68e-42fa-bca7-7e41d07a815d", 49, 6, "A big scary Troll", 22, "Troll" },
+                    { "e27a46b2-cb7a-49bb-bde2-74659bbc3f43", 15, 18, "A big scary Goblin", 55, "Goblin" }
                 });
         }
 

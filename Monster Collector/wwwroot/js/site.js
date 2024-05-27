@@ -67,15 +67,17 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 function populateAuditLogTable(auditLogs) {
-    var tableBody = document.getElementById('auditLogTable').querySelector('tbody');
-    tableBody.innerHTML = ''; // Clear existing entries
+        var tableBody = document.getElementById('auditLogTable').querySelector('tbody');
+        tableBody.innerHTML = ''; // Clear existing entries
 
-    auditLogs.forEach(function(log) {
-        var row = tableBody.insertRow();
-        row.insertCell(0).textContent = log.actionType;
-        row.insertCell(1).textContent = log.changedColumns.join(', ');
-        row.insertCell(2).textContent = JSON.stringify(log.oldValues);
-        row.insertCell(3).textContent = JSON.stringify(log.newValues);
-        row.insertCell(4).textContent = new Date(log.dateChanged).toLocaleString();
-    });
+        if (auditLogs.length) {
+            auditLogs.forEach(function(log) {
+                var row = tableBody.insertRow();
+                row.insertCell(0).textContent = log.actionType;
+                row.insertCell(1).textContent = log.changedColumns.join(', ');
+                row.insertCell(2).textContent = JSON.stringify(log.oldValues);
+                row.insertCell(3).textContent = JSON.stringify(log.newValues);
+                row.insertCell(4).textContent = new Date(log.dateChanged).toLocaleString();
+            });
+        }
 }

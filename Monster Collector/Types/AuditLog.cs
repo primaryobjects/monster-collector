@@ -7,8 +7,8 @@ public class AuditLog
     public string? TableName { get; set; }
     public string? ActionType { get; set; }
     public string KeyValues { get; set; }
-    public Dictionary<string, object?> OldValues { get; set; } = new Dictionary<string, object?>();
-    public Dictionary<string, object?> NewValues { get; set; } = new Dictionary<string, object?>();
+    public List<string?> OldValues { get; set; } = new List<string>();
+    public List<string?> NewValues { get; set; } = new List<string>();
     public List<string> ChangedColumns { get; set; } = new List<string>();
     public DateTime DateChanged { get; set; }
 
