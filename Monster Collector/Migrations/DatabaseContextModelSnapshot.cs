@@ -81,93 +81,93 @@ namespace Monster_Collector.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "bf9f5481-2715-40cb-9300-d1d8cf8af261",
-                            Attack = 47,
-                            Defense = 20,
-                            Description = "A big scary Goblin",
-                            Health = 94,
-                            Name = "Goblin"
-                        },
-                        new
-                        {
-                            Id = "cc73bc38-e059-4b73-bbad-d89a42dd8bba",
-                            Attack = 26,
-                            Defense = 21,
-                            Description = "A big scary Dragon",
-                            Health = 33,
-                            Name = "Dragon"
-                        },
-                        new
-                        {
-                            Id = "c14e59db-1478-49c7-80a1-9e5850771d8d",
-                            Attack = 43,
-                            Defense = 25,
-                            Description = "A big scary Ogre",
-                            Health = 91,
-                            Name = "Ogre"
-                        },
-                        new
-                        {
-                            Id = "6bc823a2-793f-4445-ae45-9a839fe6089a",
-                            Attack = 32,
-                            Defense = 23,
+                            Id = "93e6cb95-f3c5-4395-b97a-6aad1bf4b209",
+                            Attack = 45,
+                            Defense = 16,
                             Description = "A big scary Demon",
-                            Health = 45,
+                            Health = 91,
                             Name = "Demon"
                         },
                         new
                         {
-                            Id = "d0012337-b68e-42fa-bca7-7e41d07a815d",
-                            Attack = 49,
-                            Defense = 6,
+                            Id = "86b49eb9-ad59-43bb-962b-c000d6890dad",
+                            Attack = 24,
+                            Defense = 20,
                             Description = "A big scary Troll",
-                            Health = 22,
+                            Health = 61,
                             Name = "Troll"
                         },
                         new
                         {
-                            Id = "70509de8-0ce9-43fb-92b9-5cd9027933ff",
-                            Attack = 25,
-                            Defense = 9,
+                            Id = "35e61d33-ef38-437c-8f98-7f14e913da96",
+                            Attack = 39,
+                            Defense = 14,
                             Description = "A big scary Dragon",
-                            Health = 80,
+                            Health = 98,
                             Name = "Dragon"
                         },
                         new
                         {
-                            Id = "e27a46b2-cb7a-49bb-bde2-74659bbc3f43",
-                            Attack = 15,
-                            Defense = 18,
-                            Description = "A big scary Goblin",
-                            Health = 55,
-                            Name = "Goblin"
+                            Id = "5057a8fc-1677-46fa-abe8-f14fd47fb845",
+                            Attack = 10,
+                            Defense = 15,
+                            Description = "A big scary Dragon",
+                            Health = 63,
+                            Name = "Dragon"
                         },
                         new
                         {
-                            Id = "0191aef6-f7e8-45e1-9212-564e6b4d2eb5",
+                            Id = "ed34e5e1-ddce-4e63-a300-015de6bab7f1",
+                            Attack = 34,
+                            Defense = 11,
+                            Description = "A big scary Troll",
+                            Health = 86,
+                            Name = "Troll"
+                        },
+                        new
+                        {
+                            Id = "682fb900-b1e7-4ff1-8a58-ce689121051d",
                             Attack = 45,
-                            Defense = 17,
+                            Defense = 13,
                             Description = "A big scary Goblin",
-                            Health = 89,
+                            Health = 52,
                             Name = "Goblin"
                         },
                         new
                         {
-                            Id = "5a6adbc0-3d93-48a1-8170-6c955bf10a53",
-                            Attack = 50,
-                            Defense = 24,
-                            Description = "A big scary Troll",
-                            Health = 90,
-                            Name = "Troll"
+                            Id = "ada29946-39ad-4d2b-afb6-fc9206eaeded",
+                            Attack = 28,
+                            Defense = 9,
+                            Description = "A big scary Ogre",
+                            Health = 75,
+                            Name = "Ogre"
                         },
                         new
                         {
-                            Id = "7e26a7e3-d516-43f2-ad46-79360aec5fb0",
-                            Attack = 26,
+                            Id = "f4cc6398-b37d-4fe8-85b1-47c56bbe60c1",
+                            Attack = 23,
+                            Defense = 22,
+                            Description = "A big scary Ogre",
+                            Health = 74,
+                            Name = "Ogre"
+                        },
+                        new
+                        {
+                            Id = "06e5397e-c8f4-468e-8105-154448a0d5c6",
+                            Attack = 22,
+                            Defense = 10,
+                            Description = "A big scary Goblin",
+                            Health = 58,
+                            Name = "Goblin"
+                        },
+                        new
+                        {
+                            Id = "27e7d817-f023-4041-ad44-d090c8c7d6f6",
+                            Attack = 46,
                             Defense = 7,
-                            Description = "A big scary Dragon",
-                            Health = 68,
-                            Name = "Dragon"
+                            Description = "A big scary Ogre",
+                            Health = 80,
+                            Name = "Ogre"
                         });
                 });
 #pragma warning restore 612, 618

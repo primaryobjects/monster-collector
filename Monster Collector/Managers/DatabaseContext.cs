@@ -44,10 +44,10 @@ public class DatabaseContext : DbContext
             auditLog.HasKey(al => al.Id);
             auditLog.Property(al => al.NewValues).HasConversion(
                 v => JsonConvert.SerializeObject(v),
-                v => JsonConvert.DeserializeObject<List<string>>(v));
+                v => JsonConvert.DeserializeObject<Dictionary<string, object?>>(v));
             auditLog.Property(al => al.OldValues).HasConversion(
                 v => JsonConvert.SerializeObject(v),
-                v => JsonConvert.DeserializeObject<List<string>>(v));
+                v => JsonConvert.DeserializeObject<Dictionary<string, object?>>(v));
         });
     }
 
@@ -62,8 +62,8 @@ public class DatabaseContext : DbContext
                     TableName = entry.Metadata.GetTableName(),
                     ActionType = entry.State.ToString(),
                     KeyValues = JsonConvert.SerializeObject(AuditManager.GetKeyValues(entry)),
-                    OldValues = entry.State == EntityState.Added || entry.State == EntityState.Modified ? AuditManager.GetOldValues(entry) : new List<string>(),
-                    NewValues = entry.State == EntityState.Added || entry.State == EntityState.Modified ? AuditManager.GetNewValues(entry) : new List<string>(),
+                    OldValues = entry.State == EntityState.Added || entry.State == EntityState.Modified ? AuditManager.GetOldValues(entry) : new Dictionary<string, object?>(),
+                    NewValues = entry.State == EntityState.Added || entry.State == EntityState.Modified ? AuditManager.GetNewValues(entry) : new Dictionary<string, object?>(),
                     ChangedColumns = entry.State == EntityState.Modified ? AuditManager.GetChangedColumns(entry) : new List<string>()
                 };
 
