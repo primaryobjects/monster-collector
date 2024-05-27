@@ -5,6 +5,8 @@ A simple example of a VSCode C# .NET 8.0 web application using MVC, Razor, Entit
 
 The table of monsters utilizes the `contenteditable` HTML attribute to inline editing of monster details. An ajax [call](Monster%20Collector/wwwroot/js/site.js) triggers the save to an API method on the backend.
 
+Includes an audit log of all changes to records in the database.
+
 ![Monster Collector screenshot](screenshot.png)
 
 ## Quick Start
