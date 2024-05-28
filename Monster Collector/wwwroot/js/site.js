@@ -78,7 +78,7 @@
                         <td contenteditable="true">${monster.attack}</td>
                         <td contenteditable="true">${monster.defense}</td>
                         <td>
-                            <button class="saveButton">Save</button>
+                            <button class="saveButton" style="display:none;">Save</button>
                             <button class="deleteButton">Delete</button>
                         </td>
                     </tr>
