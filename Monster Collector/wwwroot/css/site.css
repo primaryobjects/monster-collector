@@ -33,3 +33,7 @@ body {
 .hover-tooltip {
   cursor: pointer;
 }
+
+#prompt {
+  min-width: 300px;
+}

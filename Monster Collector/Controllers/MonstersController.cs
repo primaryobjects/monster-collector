@@ -1,6 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 
+public class CreateModel
+{
+    public string? Prompt { get; set; }
+}
+
 [Route("api/monster")]
 [ApiController]
 public class MonsterController : ControllerBase
@@ -25,14 +30,14 @@ public class MonsterController : ControllerBase
     }
 
     [HttpPost()]
-    public IActionResult CreateMonster()
+    public IActionResult CreateMonster(CreateModel model)
     {
         // Load the exiting names of monsters.
         var names = MonsterManager.Names();
 
         // Generate a new monster.
         var monster = new Monster();
-        monster.GenerateNameDescription(names);
+        monster.GenerateNameDescription(names, model.Prompt);
 
         // Save the monster.
         MonsterManager.Update(monster);

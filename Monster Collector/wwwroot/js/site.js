@@ -53,10 +53,16 @@
 
     $(".addButton").click(function() {
         $(this).attr('disabled', true);
+        $('#prompt').attr('disabled', true);
+
+        const createModel = {
+            Prompt: $('#prompt').val().trim()
+        };
 
         $.ajax({
             url: `/api/monster`,
             type: "POST",
+            data: JSON.stringify(createModel),
             contentType: "application/json",
             success: monster => {
                 console.log(`Monster created: ${JSON.stringify(monster)}`);
@@ -83,6 +89,7 @@
             },
             complete: () => {
                 $(this).removeAttr('disabled');
+                $('#prompt').removeAttr('disabled');
             }
         });
     });
