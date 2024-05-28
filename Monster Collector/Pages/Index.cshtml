@@ -8,7 +8,7 @@
     <h1 class="display-4">Monster Collector</h1>
     <p id="message" style="min-height: 25px; color: green;"></p>
 
-    <table class="table">
+    <table class="table monster-table">
         <thead>
             <tr>
                 <th>Name</th>
@@ -27,31 +27,34 @@
                     <td contenteditable="true">@monster.Defense</td>
                     <td>
                         <button class="saveButton">Save</button>
+                        <button class="deleteButton">Delete</button>
                     </td>
                 </tr>
             }
         </tbody>
     </table>
-    <!-- Add a modal or tooltip element to your HTML where the audit logs will be displayed -->
-    <div id="auditLogModal" class="modal">
-        <div class="modal-content">
-            <span class="close">×</span>
-            <h2>Audit Log History</h2>
-            <table id="auditLogTable" class="table">
-                <thead>
-                    <tr>
-                        <th>Action Type</th>
-                        <th>Column Changed</th>
-                        <th>Old Value</th>
-                        <th>New Value</th>
-                        <th>Date Changed</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Audit log entries will be populated here -->
-                </tbody>
-            </table>
-        </div>
-    </div>
+</div>
 
+<button class="addButton">Add</button>
+
+<!-- Add a modal or tooltip element to your HTML where the audit logs will be displayed -->
+<div id="auditLogModal" class="modal">
+    <div class="modal-content">
+        <span class="close">×</span>
+        <h2>Audit Log History</h2>
+        <table id="auditLogTable" class="table">
+            <thead>
+                <tr>
+                    <th>Action Type</th>
+                    <th>Column Changed</th>
+                    <th>Old Value</th>
+                    <th>New Value</th>
+                    <th>Date Changed</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Audit log entries will be populated here -->
+            </tbody>
+        </table>
+    </div>
 </div>

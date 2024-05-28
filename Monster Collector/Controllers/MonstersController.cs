@@ -23,4 +23,28 @@ public class MonsterController : ControllerBase
 
         return monster != null ? new JsonResult(monster) : NotFound();
     }
+
+    [HttpPost()]
+    public IActionResult CreateMonster()
+    {
+        // Load the exiting names of monsters.
+        var names = MonsterManager.Names();
+
+        // Generate a new monster.
+        var monster = new Monster();
+        monster.GenerateNameDescription(names);
+
+        // Save the monster.
+        MonsterManager.Update(monster);
+
+        return new JsonResult(monster);
+    }
+
+    [HttpDelete("{id}")]
+    public IActionResult DeleteMonster(string id)
+    {
+        Monster? monster = MonsterManager.Delete(id);
+
+        return monster != null ? new JsonResult(monster) : NotFound();
+    }
 }

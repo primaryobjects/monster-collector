@@ -26,6 +26,8 @@ body {
 
 .modal-content {
   transition-delay: 0s; /* No delay when leaving the modal */
+  box-shadow: 0 8px 6px -6px #ddddff;
+  padding: 10px;
 }
 
 .hover-tooltip {

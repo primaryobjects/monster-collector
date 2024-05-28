@@ -23,7 +23,7 @@ public class Monster
         Defense = rand.Next(5, 26);
     }
 
-    public string? GenerateNameDescription(List<string> ignoreNames = null)
+    public string? GenerateNameDescription(List<string> ignoreNames)
     {
         string? output = "";
 

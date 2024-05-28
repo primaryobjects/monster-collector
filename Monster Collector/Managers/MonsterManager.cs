@@ -43,9 +43,17 @@ public static class MonsterManager
         return monster;
     }
 
+    public static List<string> Names()
+    {
+        using (var context = new DatabaseContext())
+        {
+            return context.Monsters.Select(x => x.Name).ToList();
+        }
+    }
+
     public static Monster? Update(Monster monster)
     {
-        Monster? result = null;
+        Monster result = monster;
 
         using (var context = new DatabaseContext())
         {
@@ -58,11 +66,32 @@ public static class MonsterManager
                 existingMonster.Defense = monster.Defense;
 
                 result = existingMonster;
+            }
+            else
+            {
+                context.Monsters.Add(monster);
+            }
 
+            context.SaveChanges();
+        }
+
+        return result;
+    }
+
+    public static Monster? Delete(string id)
+    {
+        Monster? monster = null;
+
+        using (var context = new DatabaseContext())
+        {
+            monster = context.Monsters.Find(id);
+            if (monster != null)
+            {
+                context.Monsters.Remove(monster);
                 context.SaveChanges();
             }
         }
 
-        return result;
+        return monster;
     }
 }
