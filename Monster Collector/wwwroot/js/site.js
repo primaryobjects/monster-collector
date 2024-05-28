@@ -21,6 +21,8 @@
                 $(`#innerMessage-${id}`).fadeOut(2000, function() {
                     $(this).remove();
                 });
+                // Hide the save button after successful save
+                row.find(".saveButton").hide();
             }
         });
     });
@@ -76,7 +78,7 @@
                         <td contenteditable="true">${monster.attack}</td>
                         <td contenteditable="true">${monster.defense}</td>
                         <td>
-                            <button class="saveButton">Save</button>
+                            <button class="saveButton" style="display:none;">Save</button>
                             <button class="deleteButton">Delete</button>
                         </td>
                     </tr>
@@ -92,6 +94,11 @@
                 $('#prompt').removeAttr('disabled');
             }
         });
+    });
+
+    // Detect changes in contenteditable fields and show the save button
+    $(document).on('input', '[contenteditable]', function() {
+        $(this).closest('tr').find('.saveButton').show();
     });
 });
 
