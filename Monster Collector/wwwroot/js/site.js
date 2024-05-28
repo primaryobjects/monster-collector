@@ -93,9 +93,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Event delegation for mouseenter and mouseleave on rows with class 'hover-tooltip'
     document.addEventListener('mouseenter', function(event) {
-        if (event.target.className && event.target.className.indexOf('hover-tooltip') !== -1) {
+        if (event.target.classList && event.target.classList.contains('hover-tooltip')) {
             var row = event.target.closest('tr.hover-tooltip[data-id]');
-            if (row && event.target.matches('tr.hover-tooltip[data-id]')) {
+            if (row) {
                 var monsterId = row.getAttribute('data-id');
 
                 // Clear any existing timeout to avoid multiple triggers
@@ -118,9 +118,9 @@ document.addEventListener('DOMContentLoaded', function() {
     }, true);
 
     document.addEventListener('mouseleave', function(event) {
-        if (event.target.className && event.target.className.indexOf('hover-tooltip') !== -1) {
+        if (event.target.classList && event.target.classList.contains('hover-tooltip')) {
             var row = event.target.closest('tr.hover-tooltip[data-id]');
-            if (row && event.target.matches('tr.hover-tooltip[data-id]')) {
+            if (row) {
                 // Hide the modal or tooltip
                 document.getElementById('auditLogModal').style.display = 'none';
                 clearTimeout(hoverTimeout); // Clear the timeout when leaving the row
@@ -131,7 +131,7 @@ document.addEventListener('DOMContentLoaded', function() {
     // Close the modal when clicking outside of it
     window.addEventListener('click', function(event) {
         var modal = document.getElementById('auditLogModal');
-        if (event.target == modal || event.target.className == 'close') {
+        if (event.target === modal || event.target.className === 'close') {
             modal.style.display = 'none';
         }
     });
