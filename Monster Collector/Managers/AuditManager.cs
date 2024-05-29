@@ -13,7 +13,7 @@ public static class AuditManager
     {
         return entry.Properties
                     .Where(p => p.IsModified)
-                    .Select(p => p.OriginalValue.ToString())
+                    .Select(p => p.OriginalValue?.ToString())
                     .ToList();
     }
 
@@ -21,7 +21,7 @@ public static class AuditManager
     {
         return entry.Properties
                     .Where(p => p.IsModified)
-                    .Select(p => p.CurrentValue.ToString())
+                    .Select(p => p.CurrentValue?.ToString())
                     .ToList();
     }
 
