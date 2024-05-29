@@ -6,10 +6,10 @@ public class AuditLog
     public Guid Id { get; set; }
     public string? TableName { get; set; }
     public string? ActionType { get; set; }
-    public string KeyValues { get; set; }
-    public List<string?> OldValues { get; set; } = new List<string>();
-    public List<string?> NewValues { get; set; } = new List<string>();
-    public List<string> ChangedColumns { get; set; } = new List<string>();
+    public string KeyValues { get; set; } = "";
+    public List<string?> OldValues { get; set; } = new();
+    public List<string?> NewValues { get; set; } = new();
+    public List<string> ChangedColumns { get; set; } = new();
     public DateTime DateChanged { get; set; }
 
     public AuditLog()
