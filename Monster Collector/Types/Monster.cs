@@ -25,7 +25,7 @@ public class Monster
 
     public string? GenerateNameDescription(List<string> ignoreNames, string? customPrompt = null)
     {
-        string? output = "";
+        string? output = null;
 
         try
         {
@@ -47,11 +47,14 @@ public class Monster
             output = CohereManager.GetText(prompt, ignoreNames != null && ignoreNames.Count > 0 ? string.Join(", ", ignoreNames) : "null").GetAwaiter().GetResult();
 
             // Parse the output for "name, description".
-            var parts = output.Split(",", 2);
-            Name = parts[0].Trim();
-            Description = parts[1].Trim();
+            if (output is not null)
+            {
+                var parts = output.Split(",", 2);
+                Name = parts[0].Trim();
+                Description = parts[1].Trim();
 
-            Console.WriteLine($"Created {Name}, {Description}");
+                Console.WriteLine($"Created {Name}, {Description}");    
+            }
         }
         catch (Exception excep)
         {
