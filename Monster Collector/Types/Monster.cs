@@ -23,7 +23,7 @@ public class Monster
         Defense = rand.Next(5, 26);
     }
 
-    public string? GenerateNameDescription(List<string> ignoreNames, string customPrompt = "")
+    public string? GenerateNameDescription(List<string> ignoreNames, string? customPrompt = null)
     {
         string? output = "";
 
@@ -36,7 +36,7 @@ public class Monster
             The description should be no longer than one sentence. The name should be three or less words and be creative and unique.
             Output the result in the format: Name, Description. The Name and Description must be separated by a comma.
             The type of monster should be {Name}.
-            {customPrompt}
+            {customPrompt ?? ""}
             The name of the monster can not include any of the following names.";
 
             // Format the prompt to remove spaces and newlines.
