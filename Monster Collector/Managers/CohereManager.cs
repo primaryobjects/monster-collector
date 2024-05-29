@@ -12,7 +12,7 @@ public static class CohereManager
 
     public static async Task<string?> GetText(string prompt, string input)
     {
-        string apiKey = Environment.GetEnvironmentVariable("CohereApiKey");
+        string apiKey = Environment.GetEnvironmentVariable("CohereApiKey") ?? "";
         TornadoApi api = new TornadoApi(new List<ProviderAuthentication> { new ProviderAuthentication(LLmProviders.Cohere, apiKey) });
         ChatModel model = ChatModel.Cohere.CommandRPlus;
 
