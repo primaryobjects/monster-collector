@@ -4,10 +4,15 @@ namespace Monster_Collector.Managers;
 
 public class MonsterFactory
 {
+    private static readonly LLM Llm = new CohereManager();
+
+    public MonsterFactory()
+    {
+    }
     public Monster Create(List<string> ignoreNames, string? customPrompt = null)
     {
         var monster = new Monster();
-        if (new CohereManager().IsValid())
+        if (Llm.IsValid())
         {
             GenerateNameDescription(monster, ignoreNames, customPrompt);    
         }
@@ -35,7 +40,7 @@ public class MonsterFactory
             prompt = Regex.Replace(prompt, @"\s+", " ");
 
             // Call the LLM.
-            output = new CohereManager().GetTextAsync(prompt, ignoreNames != null && ignoreNames.Count > 0 ? string.Join(", ", ignoreNames) : "null").GetAwaiter().GetResult();
+            output = Llm.GetTextAsync(prompt, ignoreNames != null && ignoreNames.Count > 0 ? string.Join(", ", ignoreNames) : "null").GetAwaiter().GetResult();
 
             // Parse the output for "name, description".
             if (output is not null)
