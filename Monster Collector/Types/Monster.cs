@@ -23,19 +23,19 @@ public class Monster
         Defense = rand.Next(5, 26);
     }
 
-    public string? GenerateNameDescription(Monster monster, List<string> ignoreNames, string? customPrompt = null)
+    public static string? GenerateNameDescription(Monster monster, List<string> ignoreNames, string? customPrompt = null)
     {
         string? output = null;
 
         try
         {
-            Console.WriteLine($"Generating name and description for type {Name}");
+            Console.WriteLine($"Generating name and description for type {monster.Name}");
 
             string prompt = @$"
             Generate a unique creative monster name and description for a scary monster in a dungeon game.
             The description should be no longer than one sentence. The name should be three or less words and be creative and unique.
             Output the result in the format: Name, Description. The Name and Description must be separated by a comma.
-            The type of monster should be {Name}.
+            The type of monster should be {monster.Name}.
             {customPrompt ?? ""}
             The name of the monster can not include any of the following names.";
 
@@ -50,10 +50,10 @@ public class Monster
             if (output is not null)
             {
                 var parts = output.Split(",", 2);
-                Name = parts[0].Trim();
-                Description = parts[1].Trim();
+                monster.Name = parts[0].Trim();
+                monster.Description = parts[1].Trim();
 
-                Console.WriteLine($"Created {Name}, {Description}");    
+                Console.WriteLine($"Created {monster.Name}, {monster.Description}");    
             }
         }
         catch (Exception excep)
