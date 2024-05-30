@@ -37,7 +37,7 @@ public class MonsterController : ControllerBase
         var names = MonsterManager.Names();
 
         // Generate a new monster.
-        var monster = new MonsterFactory().Create(names, model.Prompt);
+        var monster = new MonsterFactory(new CohereManager()).Create(names, model.Prompt);
 
         // Save the monster.
         MonsterManager.Update(monster);

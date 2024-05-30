@@ -25,7 +25,7 @@ public class DatabaseInitializer
             var monsters = new List<Monster>();
             for (int i=0; i<10; i++)
             {
-                var monster = new MonsterFactory().Create(existingNames);
+                var monster = new MonsterFactory(new CohereManager()).Create(existingNames);
                 monsters.Add(monster);
 
                 // Prevent duplicate names.

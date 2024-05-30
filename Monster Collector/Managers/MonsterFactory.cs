@@ -4,10 +4,11 @@ namespace Monster_Collector.Managers;
 
 public class MonsterFactory
 {
-    private static readonly LLM Llm = new CohereManager();
+    private readonly LLM Llm;
 
-    public MonsterFactory()
+    public MonsterFactory(LLM llm)
     {
+        this.Llm = llm;
     }
     public Monster Create(List<string> ignoreNames, string? customPrompt = null)
     {
@@ -19,7 +20,7 @@ public class MonsterFactory
         return monster;
     }
     
-    private static string? GenerateNameDescription(Monster monster, List<string> ignoreNames, string? customPrompt = null)
+    private string? GenerateNameDescription(Monster monster, List<string> ignoreNames, string? customPrompt = null)
     {
         string? output = null;
 
