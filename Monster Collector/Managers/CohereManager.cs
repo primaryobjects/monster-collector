@@ -3,7 +3,7 @@ using LlmTornado.Chat.Models;
 using LlmTornado.Code;
 using LlmTornado.Models;
 
-public class CohereManager
+public class CohereManager : LLM
 {
     public bool IsValid()
     {
