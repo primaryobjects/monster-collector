@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using Monster_Collector.Managers;
 
 public class CreateModel
 {
@@ -36,8 +37,7 @@ public class MonsterController : ControllerBase
         var names = MonsterManager.Names();
 
         // Generate a new monster.
-        var monster = new Monster();
-        monster.GenerateNameDescription(monster, names, model.Prompt);
+        var monster = new MonsterFactory().Create(names, model.Prompt);
 
         // Save the monster.
         MonsterManager.Update(monster);

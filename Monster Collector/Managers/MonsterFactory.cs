@@ -7,7 +7,10 @@ public class MonsterFactory
     public Monster Create(List<string> ignoreNames, string? customPrompt = null)
     {
         var monster = new Monster();
-        GenerateNameDescription(monster, ignoreNames, customPrompt);
+        if (new CohereManager().IsValid())
+        {
+            GenerateNameDescription(monster, ignoreNames, customPrompt);    
+        }
         return monster;
     }
     

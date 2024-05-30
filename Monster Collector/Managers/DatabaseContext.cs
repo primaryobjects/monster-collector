@@ -1,5 +1,6 @@
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
+using Monster_Collector.Managers;
 using Newtonsoft.Json;
 
 public class DatabaseContext : DbContext
@@ -55,12 +56,7 @@ public class DatabaseContext : DbContext
         var monsters = new List<Monster>();
         for (int i=0; i<10; i++)
         {
-            var monster = new Monster();
-            if (cohereManager.IsValid())
-            {
-                // Generate a name and description using an LLM service, providing the list of already used names to avoid duplicates.
-                monster.GenerateNameDescription(monster, existingNames);
-            }
+            var monster = new MonsterFactory().Create(existingNames);
             monsters.Add(monster);
 
             // Prevent duplicate names.
