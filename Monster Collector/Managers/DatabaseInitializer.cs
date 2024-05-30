@@ -2,13 +2,18 @@
 
 public class DatabaseInitializer
 {
+    private readonly LLM Llm = new CohereManager();
+
+    public DatabaseInitializer()
+    {
+    }
     public void InitializeDatabase()
     {
         using var context = new DatabaseContext();
         if (context.Database.EnsureCreated())
         {
             Console.WriteLine("Generating monsters for database.");
-            var cohereManager = new CohereManager();
+            var cohereManager = Llm;
             if (!cohereManager.IsValid())
             {
                 Console.WriteLine("Missing CohereApiKey in .env file. Register an API key at https://dashboard.cohere.com/api-keys");
