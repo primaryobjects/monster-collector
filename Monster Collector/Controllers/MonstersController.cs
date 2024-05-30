@@ -11,6 +11,12 @@ public class CreateModel
 [ApiController]
 public class MonsterController : ControllerBase
 {
+    private readonly MonsterFactory monsterFactory;
+
+    public MonsterController(MonsterFactory monsterFactory)
+    {
+        this.monsterFactory = monsterFactory;
+    }
     [HttpPut("{id}")]
     public IActionResult UpdateMonster(string id, Monster monster)
     {
@@ -37,7 +43,7 @@ public class MonsterController : ControllerBase
         var names = MonsterManager.Names();
 
         // Generate a new monster.
-        var monster = new MonsterFactory(new CohereManager()).Create(names, model.Prompt);
+        var monster = monsterFactory.Create(names, model.Prompt);
 
         // Save the monster.
         MonsterManager.Update(monster);

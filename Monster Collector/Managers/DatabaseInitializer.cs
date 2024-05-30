@@ -3,10 +3,12 @@
 public class DatabaseInitializer
 {
     private readonly LLM Llm;
+    private readonly MonsterFactory monsterFactory;
 
-    public DatabaseInitializer(LLM llm)
+    public DatabaseInitializer(LLM llm, MonsterFactory monsterFactory)
     {
         Llm = llm;
+        this.monsterFactory = monsterFactory;
     }
     public void InitializeDatabase()
     {
@@ -26,7 +28,7 @@ public class DatabaseInitializer
             var monsters = new List<Monster>();
             for (int i=0; i<10; i++)
             {
-                var monster = new MonsterFactory(new CohereManager()).Create(existingNames);
+                var monster = monsterFactory.Create(existingNames);
                 monsters.Add(monster);
 
                 // Prevent duplicate names.
