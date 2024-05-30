@@ -37,7 +37,7 @@ public class MonsterController : ControllerBase
 
         // Generate a new monster.
         var monster = new Monster();
-        monster.GenerateNameDescription(names, model.Prompt);
+        monster.GenerateNameDescription(monster, names, model.Prompt);
 
         // Save the monster.
         MonsterManager.Update(monster);

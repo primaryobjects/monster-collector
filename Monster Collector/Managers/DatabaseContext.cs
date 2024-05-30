@@ -59,7 +59,7 @@ public class DatabaseContext : DbContext
             if (cohereManager.IsValid())
             {
                 // Generate a name and description using an LLM service, providing the list of already used names to avoid duplicates.
-                monster.GenerateNameDescription(existingNames);
+                monster.GenerateNameDescription(monster, existingNames);
             }
             monsters.Add(monster);
 
