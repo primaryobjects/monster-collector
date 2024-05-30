@@ -2,10 +2,11 @@
 
 public class DatabaseInitializer
 {
-    private readonly LLM Llm = new CohereManager();
+    private readonly LLM Llm;
 
-    public DatabaseInitializer()
+    public DatabaseInitializer(LLM llm)
     {
+        Llm = llm;
     }
     public void InitializeDatabase()
     {

@@ -32,6 +32,6 @@ app.UseAuthorization();
 app.MapRazorPages();
 app.MapControllers();
 
-new DatabaseInitializer().InitializeDatabase();
+new DatabaseInitializer(new CohereManager()).InitializeDatabase();
 
 app.Run();
