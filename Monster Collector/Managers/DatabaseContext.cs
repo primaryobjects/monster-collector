@@ -1,6 +1,5 @@
 using DotNetEnv;
 using Microsoft.EntityFrameworkCore;
-using Monster_Collector.Managers;
 using Newtonsoft.Json;
 
 public class DatabaseContext : DbContext
@@ -10,12 +9,6 @@ public class DatabaseContext : DbContext
 
     public DatabaseContext()
     {
-        // Check if the database table already exists.
-        if (Database.EnsureCreated())
-        {
-            // Populate the database.
-            InitializeMonsters();
-        }
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -39,33 +32,6 @@ public class DatabaseContext : DbContext
 
         // Setup the audit log for serialization of Dictionary types.
         InitializeAuditLog(builder);
-    }
-
-    private void InitializeMonsters()
-    {
-        Console.WriteLine("Generating monsters for database.");
-        var cohereManager = new CohereManager();
-        if (!cohereManager.IsValid())
-        {
-            Console.WriteLine("Missing CohereApiKey in .env file. Register an API key at https://dashboard.cohere.com/api-keys");
-        }
-
-        List<string> existingNames = new List<string>();
-
-        // Generate monsters.
-        var monsters = new List<Monster>();
-        for (int i=0; i<10; i++)
-        {
-            var monster = new MonsterFactory().Create(existingNames);
-            monsters.Add(monster);
-
-            // Prevent duplicate names.
-            existingNames.Add(monster.Name);
-        }
-
-        // Add the monsters to the database.
-        Monsters.AddRange(monsters);
-        SaveChanges();
     }
 
     private void InitializeAuditLog(ModelBuilder builder)
