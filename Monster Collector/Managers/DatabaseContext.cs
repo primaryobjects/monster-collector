@@ -43,8 +43,8 @@ public class DatabaseContext : DbContext
     private void InitializeMonsters()
     {
         Console.WriteLine("Generating monsters for database.");
-
-        if (!CohereManager.IsValid())
+        var cohereManager = new CohereManager();
+        if (!cohereManager.IsValid())
         {
             Console.WriteLine("Missing CohereApiKey in .env file. Register an API key at https://dashboard.cohere.com/api-keys");
         }
@@ -56,7 +56,7 @@ public class DatabaseContext : DbContext
         for (int i=0; i<10; i++)
         {
             var monster = new Monster();
-            if (CohereManager.IsValid())
+            if (cohereManager.IsValid())
             {
                 // Generate a name and description using an LLM service, providing the list of already used names to avoid duplicates.
                 monster.GenerateNameDescription(existingNames);

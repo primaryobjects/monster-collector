@@ -44,7 +44,7 @@ public class Monster
             prompt = Regex.Replace(prompt, @"\s+", " ");
 
             // Call the LLM.
-            output = CohereManager.GetText(prompt, ignoreNames != null && ignoreNames.Count > 0 ? string.Join(", ", ignoreNames) : "null").GetAwaiter().GetResult();
+            output = new CohereManager().GetTextAsync(prompt, ignoreNames != null && ignoreNames.Count > 0 ? string.Join(", ", ignoreNames) : "null").GetAwaiter().GetResult();
 
             // Parse the output for "name, description".
             if (output is not null)
