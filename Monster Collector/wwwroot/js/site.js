@@ -30,6 +30,7 @@
     // Event delegation for delete button click
     $(document).on('click', '.deleteButton', function() {
         var row = $(this).closest("tr");
+        var rowDescription = row.next('.collapse-content');
         const id = row.data("id");
         const name = row.find("td:eq(0)").text().trim();
         const button = $(this);
@@ -44,6 +45,9 @@
                 row.fadeOut(400, function() {
                     row.remove();
                 });
+                rowDescription.fadeOut(400, function() {
+                    rowDescription.remove();
+                })
 
                 $("#message").append(`<div id='innerMessage-${id}'>${name} deleted.</div>`);
                 $(`#innerMessage-${id}`).fadeOut(2000, function() {
@@ -72,8 +76,8 @@
                 // Insert a new row into the table.
                 const table = $('.monster-table tbody');
                 table.append(`
-                    <tr data-id="${monster.id}" class='hover-tooltip'>
-                        <td contenteditable="true" title="${monster.description}">${monster.name}</td>
+                    <tr data-id="${monster.id}" class='hover-tooltip'">
+                        <td class="controls" contenteditable="true" title="${monster.description}">${monster.name}</td>
                         <td contenteditable="true">${monster.health}</td>
                         <td contenteditable="true">${monster.attack}</td>
                         <td contenteditable="true">${monster.defense}</td>
@@ -81,6 +85,9 @@
                             <button class="saveButton" style="display:none;">Save</button>
                             <button class="deleteButton">Delete</button>
                         </td>
+                    </tr>
+                    <tr class="collapse-content">
+                        <td colspan="5" class='description'>${monster.description}</td>
                     </tr>
                 `);
 
@@ -149,20 +156,25 @@ document.addEventListener('DOMContentLoaded', function() {
             modal.style.display = 'none';
         }
     });
+
+    $(document).on('click', '.controls', function() {
+        // Toggle the 'd-none' class to show/hide the .collapse-content
+        $(this).closest('tr').next('.collapse-content').toggleClass('d-none');
+    });
 });
 
 function populateAuditLogTable(auditLogs) {
-        var tableBody = document.getElementById('auditLogTable').querySelector('tbody');
-        tableBody.innerHTML = ''; // Clear existing entries
+    var tableBody = document.getElementById('auditLogTable').querySelector('tbody');
+    tableBody.innerHTML = ''; // Clear existing entries
 
-        if (auditLogs.length) {
-            auditLogs.forEach(function(log) {
-                var row = tableBody.insertRow();
-                row.insertCell(0).textContent = log.actionType;
-                row.insertCell(1).textContent = log.changedColumns.join(', ');
-                row.insertCell(2).textContent = JSON.stringify(log.oldValues);
-                row.insertCell(3).textContent = JSON.stringify(log.newValues);
-                row.insertCell(4).textContent = new Date(log.dateChanged).toLocaleString();
-            });
-        }
+    if (auditLogs.length) {
+        auditLogs.forEach(function(log) {
+            var row = tableBody.insertRow();
+            row.insertCell(0).textContent = log.actionType;
+            row.insertCell(1).textContent = log.changedColumns.join(', ');
+            row.insertCell(2).textContent = JSON.stringify(log.oldValues);
+            row.insertCell(3).textContent = JSON.stringify(log.newValues);
+            row.insertCell(4).textContent = new Date(log.dateChanged).toLocaleString();
+        });
+    }
 }

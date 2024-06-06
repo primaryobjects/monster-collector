@@ -25,7 +25,7 @@ public class Monster
 
     public string? GenerateNameDescription(List<string> ignoreNames, string customPrompt = "")
     {
-        string? output = "";
+        string output = "";
 
         try
         {
@@ -44,7 +44,7 @@ public class Monster
             prompt = Regex.Replace(prompt, @"\s+", " ");
 
             // Call the LLM.
-            output = CohereManager.GetText(prompt, ignoreNames != null && ignoreNames.Count > 0 ? string.Join(", ", ignoreNames) : "null").GetAwaiter().GetResult();
+            output = CohereManager.GetText(prompt, ignoreNames != null && ignoreNames.Count > 0 ? string.Join(", ", ignoreNames) : "null").GetAwaiter().GetResult()!;
 
             // Parse the output for "name, description".
             var parts = output.Split(",", 2);
@@ -59,6 +59,26 @@ public class Monster
         }
 
         return output;
+    }
+
+    public string? GenerateImage()
+    {
+        string? url = "";
+
+        try
+        {
+            Console.WriteLine($"Generating image for {Name} - {Description}");
+
+            var imageResult = CohereManager.GetImage($"{Name} - {Description}").GetAwaiter().GetResult();
+
+            Console.WriteLine($"Created {Description}");
+        }
+        catch (Exception excep)
+        {
+            Console.WriteLine(excep.Message);
+        }
+
+        return url;
     }
 
     public override string ToString()

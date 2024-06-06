@@ -49,7 +49,7 @@ public class DatabaseContext : DbContext
             Console.WriteLine("Missing CohereApiKey in .env file. Register an API key at https://dashboard.cohere.com/api-keys");
         }
 
-        List<string> existingNames = new List<string>();
+        List<string> existingNames = [];
 
         // Generate monsters.
         var monsters = new List<Monster>();
@@ -81,10 +81,10 @@ public class DatabaseContext : DbContext
             auditLog.HasKey(al => al.Id);
             auditLog.Property(al => al.NewValues).HasConversion(
                 v => JsonConvert.SerializeObject(v),
-                v => JsonConvert.DeserializeObject<List<string>>(v));
+                v => JsonConvert.DeserializeObject<List<string>>(v)!);
             auditLog.Property(al => al.OldValues).HasConversion(
                 v => JsonConvert.SerializeObject(v),
-                v => JsonConvert.DeserializeObject<List<string>>(v));
+                v => JsonConvert.DeserializeObject<List<string>>(v)!);
         });
     }
 
@@ -101,9 +101,9 @@ public class DatabaseContext : DbContext
                     TableName = entry.Metadata.GetTableName(),
                     ActionType = entry.State.ToString(),
                     KeyValues = JsonConvert.SerializeObject(AuditManager.GetKeyValues(entry)),
-                    OldValues = entry.State == EntityState.Added || entry.State == EntityState.Modified ? AuditManager.GetOldValues(entry) : new List<string>(),
-                    NewValues = entry.State == EntityState.Added || entry.State == EntityState.Modified ? AuditManager.GetNewValues(entry) : new List<string>(),
-                    ChangedColumns = entry.State == EntityState.Modified ? AuditManager.GetChangedColumns(entry) : new List<string>()
+                    OldValues = entry.State == EntityState.Added || entry.State == EntityState.Modified ? AuditManager.GetOldValues(entry) : [],
+                    NewValues = entry.State == EntityState.Added || entry.State == EntityState.Modified ? AuditManager.GetNewValues(entry) : [],
+                    ChangedColumns = entry.State == EntityState.Modified ? AuditManager.GetChangedColumns(entry) : []
                 };
 
                 auditEntries.Add(auditEntry);

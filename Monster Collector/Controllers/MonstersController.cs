@@ -1,9 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System.Collections.Generic;
 
 public class CreateModel
 {
-    public string? Prompt { get; set; }
+    public required string Prompt { get; set; }
 }
 
 [Route("api/monster")]
@@ -37,7 +38,8 @@ public class MonsterController : ControllerBase
 
         // Generate a new monster.
         var monster = new Monster();
-        monster.GenerateNameDescription(names, model.Prompt);
+        monster.GenerateNameDescription(names, model.Prompt!);
+        monster.GenerateImage();
 
         // Save the monster.
         MonsterManager.Update(monster);
