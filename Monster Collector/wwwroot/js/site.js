@@ -86,7 +86,7 @@
                             <button class="deleteButton">Delete</button>
                         </td>
                     </tr>
-                    <tr class="collapse-content">
+                    <tr class="collapse-content d-none">
                         <td colspan="5" class='description'>${monster.description}</td>
                     </tr>
                 `);
