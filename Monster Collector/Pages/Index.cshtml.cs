@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Monster_Collector.Managers;
 
 namespace Monster_Collector.Pages;
 
 public class IndexModel : PageModel
 {
-    public IEnumerable<Monster> Monsters = new List<Monster>();
+    public IEnumerable<Monster> Monsters = [];
 
     private readonly ILogger<IndexModel> _logger;
 

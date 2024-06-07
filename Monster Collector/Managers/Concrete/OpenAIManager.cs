@@ -1,21 +1,21 @@
+
 using LlmTornado;
 using LlmTornado.Chat.Models;
 using LlmTornado.Code;
 using LlmTornado.Images;
 using LlmTornado.Models;
 
-public class CohereManager : LLM
+public class OpenAIManager : BaseLlmManager
 {
-    public bool IsValid()
+    public OpenAIManager()
+        : base(Environment.GetEnvironmentVariable("OpenAIApiKey"))
     {
-        return Environment.GetEnvironmentVariable("CohereApiKey") != null;
     }
 
-    public async Task<string?> GetTextAsync(string prompt, string input) 
+    public async override Task<string?> GetTextAsync(string prompt, string input)
     {
-        string apiKey = Environment.GetEnvironmentVariable("CohereApiKey") ?? "";
-        TornadoApi api = new([new ProviderAuthentication(LLmProviders.Cohere, apiKey)]);
-        ChatModel model = ChatModel.Cohere.CommandRPlus;
+        TornadoApi api = new([new ProviderAuthentication(LLmProviders.OpenAi, _apiKey ?? "")]);
+        ChatModel model = ChatModel.OpenAi.Gpt35.Turbo;
 
         string? response = await api.Chat.CreateConversation(model)
             .AppendSystemMessage(prompt)
@@ -25,10 +25,9 @@ public class CohereManager : LLM
         return response;
     }
 
-    public static async Task<ImageResult?> GetImage(string prompt)
+    public async override Task<ImageResult?> GetImage(string prompt)
     {
-        string apiKey = Environment.GetEnvironmentVariable("OpenAIApiKey")!;
-        TornadoApi api = new([new ProviderAuthentication(LLmProviders.OpenAi, apiKey)]);
+        TornadoApi api = new([new ProviderAuthentication(LLmProviders.OpenAi, _apiKey ?? "")]);
         ImageResult? response = await api.ImageGenerations.CreateImageAsync(
             new ImageGenerationRequest(
                 prompt,

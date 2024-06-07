@@ -60,4 +60,23 @@ public partial class MonsterFactory(LLM llm)
 
         return output;
     }
+
+    public string? GenerateImage(Monster monster)
+    {
+        string? url = "";
+
+        try
+        {
+            Console.WriteLine($"Generating image for {monster.Name} - {monster.Description}");
+            var imageResult = llm.GetImage($"{monster.Name} - {monster.Description}").GetAwaiter().GetResult();
+
+            Console.WriteLine($"Created {monster.Description}");
+        }
+        catch (Exception excep)
+        {
+            Console.WriteLine(excep.Message);
+        }
+
+        return url;
+    }
 }
