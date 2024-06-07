@@ -9,20 +9,20 @@ public static class AuditManager
                     .ToDictionary(p => p.Metadata.Name, p => p.CurrentValue);
     }
 
-    public static List<string> GetOldValues(EntityEntry entry)
+    public static List<string?> GetOldValues(EntityEntry entry)
     {
         return entry.Properties
                     .Where(p => p.IsModified)
-                    .Select(p => p.OriginalValue!.ToString())
-                    .ToList()!;
+                    .Select(p => p.OriginalValue?.ToString())
+                    .ToList();
     }
 
-    public static List<string> GetNewValues(EntityEntry entry)
+    public static List<string?> GetNewValues(EntityEntry entry)
     {
         return entry.Properties
                     .Where(p => p.IsModified)
-                    .Select(p => p.CurrentValue!.ToString())
-                    .ToList()!;
+                    .Select(p => p.CurrentValue?.ToString())
+                    .ToList();
     }
 
     public static List<string> GetChangedColumns(EntityEntry entry)

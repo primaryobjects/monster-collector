@@ -4,17 +4,16 @@ using LlmTornado.Code;
 using LlmTornado.Images;
 using LlmTornado.Models;
 
-public static class CohereManager
+public abstract class BaseLlmManager(string? apiKey, LLmProviders provider) : LLM
 {
-    public static bool IsValid()
-    {
-        return Environment.GetEnvironmentVariable("CohereApiKey") != null;
-    }
+    protected string? _apiKey = apiKey;
+    protected LLmProviders _provider = provider;
 
-    public static async Task<string?> GetText(string prompt, string input)
+    public bool IsValid() => _apiKey != null;
+
+    public virtual async Task<string?> GetTextAsync(string prompt, string input)
     {
-        string apiKey = Environment.GetEnvironmentVariable("CohereApiKey")!;
-        TornadoApi api = new([new ProviderAuthentication(LLmProviders.Cohere, apiKey)]);
+        TornadoApi api = new([new ProviderAuthentication(provider, _apiKey ?? "")]);
         ChatModel model = ChatModel.Cohere.CommandRPlus;
 
         string? response = await api.Chat.CreateConversation(model)
@@ -25,10 +24,9 @@ public static class CohereManager
         return response;
     }
 
-    public static async Task<ImageResult?> GetImage(string prompt)
+    public virtual async Task<ImageResult?> GetImage(string prompt)
     {
-        string apiKey = Environment.GetEnvironmentVariable("OpenAIApiKey")!;
-        TornadoApi api = new([new ProviderAuthentication(LLmProviders.OpenAi, apiKey)]);
+        TornadoApi api = new([new ProviderAuthentication(provider, _apiKey ?? "")]);
         ImageResult? response = await api.ImageGenerations.CreateImageAsync(
             new ImageGenerationRequest(
                 prompt,

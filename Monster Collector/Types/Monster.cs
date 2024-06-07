@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel.DataAnnotations;
-using System.Text.RegularExpressions;
 
 public class Monster
 {
@@ -21,64 +20,6 @@ public class Monster
         Health = rand.Next(20, 101);
         Attack = rand.Next(10, 51);
         Defense = rand.Next(5, 26);
-    }
-
-    public string? GenerateNameDescription(List<string> ignoreNames, string customPrompt = "")
-    {
-        string output = "";
-
-        try
-        {
-            Console.WriteLine($"Generating name and description for type {Name}");
-
-            string prompt = @$"
-            Generate a unique creative monster name and description for a scary monster in a dungeon game.
-            The description should be no longer than one sentence. The name should be three or less words and be creative and unique.
-            Output the result in the format: Name, Description. The Name and Description must be separated by a comma.
-            The type of monster should be {Name}.
-            {customPrompt}
-            The name of the monster can not include any of the following names.";
-
-            // Format the prompt to remove spaces and newlines.
-            prompt = prompt.Replace("\r\n", "").Trim();
-            prompt = Regex.Replace(prompt, @"\s+", " ");
-
-            // Call the LLM.
-            output = CohereManager.GetText(prompt, ignoreNames != null && ignoreNames.Count > 0 ? string.Join(", ", ignoreNames) : "null").GetAwaiter().GetResult()!;
-
-            // Parse the output for "name, description".
-            var parts = output.Split(",", 2);
-            Name = parts[0].Trim();
-            Description = parts[1].Trim();
-
-            Console.WriteLine($"Created {Name}, {Description}");
-        }
-        catch (Exception excep)
-        {
-            Console.WriteLine(excep.Message);
-        }
-
-        return output;
-    }
-
-    public string? GenerateImage()
-    {
-        string? url = "";
-
-        try
-        {
-            Console.WriteLine($"Generating image for {Name} - {Description}");
-
-            var imageResult = CohereManager.GetImage($"{Name} - {Description}").GetAwaiter().GetResult();
-
-            Console.WriteLine($"Created {Description}");
-        }
-        catch (Exception excep)
-        {
-            Console.WriteLine(excep.Message);
-        }
-
-        return url;
     }
 
     public override string ToString()

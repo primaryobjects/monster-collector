@@ -1,10 +1,14 @@
 using DotNetEnv;
+using Monster_Collector.Managers;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddRazorPages();
 builder.Services.AddControllers();
+
+builder.Services.AddSingleton<LLM, CohereManager>()
+    .AddSingleton<MonsterFactory>();
 
 var app = builder.Build();
 
@@ -28,5 +32,8 @@ app.UseAuthorization();
 
 app.MapRazorPages();
 app.MapControllers();
+
+new DatabaseInitializer(app.Services.GetRequiredService<LLM>(),
+    app.Services.GetRequiredService<MonsterFactory>()).InitializeDatabase();
 
 app.Run();
