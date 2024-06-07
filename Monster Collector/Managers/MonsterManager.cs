@@ -22,7 +22,7 @@ public static class MonsterManager
 
         using (var context = new DatabaseContext())
         {
-            monsters = context.Monsters.ToList();
+            monsters = [.. context.Monsters];
         }
 
         return monsters;
@@ -47,7 +47,7 @@ public static class MonsterManager
     {
         using (var context = new DatabaseContext())
         {
-            return context.Monsters.Select(x => x.Name).ToList();
+            return [.. context.Monsters.Select(x => x.Name)];
         }
     }
 

@@ -10,14 +10,10 @@ public class CreateModel
 
 [Route("api/monster")]
 [ApiController]
-public class MonsterController : ControllerBase
+public class MonsterController(MonsterFactory monsterFactory) : ControllerBase
 {
-    private readonly MonsterFactory monsterFactory;
+    private readonly MonsterFactory monsterFactory = monsterFactory;
 
-    public MonsterController(MonsterFactory monsterFactory)
-    {
-        this.monsterFactory = monsterFactory;
-    }
     [HttpPut("{id}")]
     public IActionResult UpdateMonster(string id, Monster monster)
     {

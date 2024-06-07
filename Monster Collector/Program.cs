@@ -12,8 +12,6 @@ builder.Services.AddSingleton<LLM, CohereManager>()
 
 var app = builder.Build();
 
-
-
 // Load environment variables.
 Env.Load();
 

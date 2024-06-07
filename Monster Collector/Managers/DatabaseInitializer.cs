@@ -1,15 +1,10 @@
 ﻿namespace Monster_Collector.Managers;
 
-public class DatabaseInitializer
+public class DatabaseInitializer(LLM llm, MonsterFactory monsterFactory)
 {
-    private readonly LLM Llm;
-    private readonly MonsterFactory monsterFactory;
+    private readonly LLM Llm = llm;
+    private readonly MonsterFactory monsterFactory = monsterFactory;
 
-    public DatabaseInitializer(LLM llm, MonsterFactory monsterFactory)
-    {
-        Llm = llm;
-        this.monsterFactory = monsterFactory;
-    }
     public void InitializeDatabase()
     {
         using var context = new DatabaseContext();
@@ -22,7 +17,7 @@ public class DatabaseInitializer
                 Console.WriteLine("Missing CohereApiKey in .env file. Register an API key at https://dashboard.cohere.com/api-keys");
             }
 
-            List<string> existingNames = new List<string>();
+            List<string> existingNames = [];
 
             // Generate monsters.
             var monsters = new List<Monster>();

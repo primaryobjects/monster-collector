@@ -2,24 +2,24 @@
 
 namespace Monster_Collector.Managers;
 
-public class MonsterFactory
+public partial class MonsterFactory(LLM llm)
 {
-    private readonly LLM Llm;
+    private readonly LLM Llm = llm;
 
-    public MonsterFactory(LLM llm)
-    {
-        this.Llm = llm;
-    }
+    [GeneratedRegex(@"\s+")]
+    private static partial Regex MyRegex();
+
     public Monster Create(List<string> ignoreNames, string? customPrompt = null)
     {
         var monster = new Monster();
         if (Llm.IsValid())
         {
-            GenerateNameDescription(monster, ignoreNames, customPrompt);    
+            GenerateNameDescription(monster, ignoreNames, customPrompt);
         }
+
         return monster;
     }
-    
+
     private string? GenerateNameDescription(Monster monster, List<string> ignoreNames, string? customPrompt = null)
     {
         string? output = null;
@@ -38,7 +38,7 @@ public class MonsterFactory
 
             // Format the prompt to remove spaces and newlines.
             prompt = prompt.Replace("\r\n", "").Trim();
-            prompt = Regex.Replace(prompt, @"\s+", " ");
+            prompt = MyRegex().Replace(prompt, " ");
 
             // Call the LLM.
             output = Llm.GetTextAsync(prompt, ignoreNames != null && ignoreNames.Count > 0 ? string.Join(", ", ignoreNames) : "null").GetAwaiter().GetResult();
@@ -50,7 +50,7 @@ public class MonsterFactory
                 monster.Name = parts[0].Trim();
                 monster.Description = parts[1].Trim();
 
-                Console.WriteLine($"Created {monster.Name}, {monster.Description}");    
+                Console.WriteLine($"Created {monster.Name}, {monster.Description}");
             }
         }
         catch (Exception excep)

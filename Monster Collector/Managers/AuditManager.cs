@@ -9,7 +9,7 @@ public static class AuditManager
                     .ToDictionary(p => p.Metadata.Name, p => p.CurrentValue);
     }
 
-    public static List<string> GetOldValues(EntityEntry entry)
+    public static List<string?> GetOldValues(EntityEntry entry)
     {
         return entry.Properties
                     .Where(p => p.IsModified)
@@ -17,7 +17,7 @@ public static class AuditManager
                     .ToList();
     }
 
-    public static List<string> GetNewValues(EntityEntry entry)
+    public static List<string?> GetNewValues(EntityEntry entry)
     {
         return entry.Properties
                     .Where(p => p.IsModified)
