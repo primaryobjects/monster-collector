@@ -22,7 +22,7 @@
             @foreach (var monster in Model.Monsters)
             {
                 <tr data-id="@monster.Id" class='hover-tooltip'>
-                    <td contenteditable="true" title="@monster.Description">@monster.Name</td>
+                    <td class='controls' contenteditable="true" title="@monster.Description">@monster.Name</td>
                     <td contenteditable="true">@monster.Health</td>
                     <td contenteditable="true">@monster.Attack</td>
                     <td contenteditable="true">@monster.Defense</td>
@@ -30,6 +30,9 @@
                         <button class="saveButton" style="display:none;">Save</button>
                         <button class="deleteButton">Delete</button>
                     </td>
+                </tr>
+                <tr class="collapse-content d-none">
+                    <td colspan="5" class='description'>@monster.Description</td>
                 </tr>
             }
         </tbody>

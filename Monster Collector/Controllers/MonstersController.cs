@@ -1,10 +1,11 @@
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System.Collections.Generic;
 using Monster_Collector.Managers;
 
 public class CreateModel
 {
-    public string? Prompt { get; set; }
+    public required string Prompt { get; set; }
 }
 
 [Route("api/monster")]

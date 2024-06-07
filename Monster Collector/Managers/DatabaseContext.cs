@@ -63,9 +63,9 @@ public class DatabaseContext : DbContext
                     TableName = entry.Metadata.GetTableName(),
                     ActionType = entry.State.ToString(),
                     KeyValues = JsonConvert.SerializeObject(AuditManager.GetKeyValues(entry)),
-                    OldValues = entry.State == EntityState.Added || entry.State == EntityState.Modified ? AuditManager.GetOldValues(entry) : new List<string?>(),
-                    NewValues = entry.State == EntityState.Added || entry.State == EntityState.Modified ? AuditManager.GetNewValues(entry) : new List<string?>(),
-                    ChangedColumns = entry.State == EntityState.Modified ? AuditManager.GetChangedColumns(entry) : new List<string>()
+                    OldValues = entry.State == EntityState.Added || entry.State == EntityState.Modified ? AuditManager.GetOldValues(entry) : [],
+                    NewValues = entry.State == EntityState.Added || entry.State == EntityState.Modified ? AuditManager.GetNewValues(entry) : [],
+                    ChangedColumns = entry.State == EntityState.Modified ? AuditManager.GetChangedColumns(entry) : []
                 };
 
                 auditEntries.Add(auditEntry);
