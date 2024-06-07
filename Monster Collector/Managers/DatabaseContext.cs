@@ -9,12 +9,6 @@ public class DatabaseContext : DbContext
 
     public DatabaseContext()
     {
-        // Check if the database table already exists.
-        if (Database.EnsureCreated())
-        {
-            // Populate the database.
-            InitializeMonsters();
-        }
     }
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -40,38 +34,6 @@ public class DatabaseContext : DbContext
         InitializeAuditLog(builder);
     }
 
-    private void InitializeMonsters()
-    {
-        Console.WriteLine("Generating monsters for database.");
-
-        if (!CohereManager.IsValid())
-        {
-            Console.WriteLine("Missing CohereApiKey in .env file. Register an API key at https://dashboard.cohere.com/api-keys");
-        }
-
-        List<string> existingNames = [];
-
-        // Generate monsters.
-        var monsters = new List<Monster>();
-        for (int i=0; i<10; i++)
-        {
-            var monster = new Monster();
-            if (CohereManager.IsValid())
-            {
-                // Generate a name and description using an LLM service, providing the list of already used names to avoid duplicates.
-                monster.GenerateNameDescription(existingNames);
-            }
-            monsters.Add(monster);
-
-            // Prevent duplicate names.
-            existingNames.Add(monster.Name);
-        }
-
-        // Add the monsters to the database.
-        Monsters.AddRange(monsters);
-        SaveChanges();
-    }
-
     private void InitializeAuditLog(ModelBuilder builder)
     {
         // Configure the AuditLog entity.
@@ -81,10 +43,10 @@ public class DatabaseContext : DbContext
             auditLog.HasKey(al => al.Id);
             auditLog.Property(al => al.NewValues).HasConversion(
                 v => JsonConvert.SerializeObject(v),
-                v => JsonConvert.DeserializeObject<List<string>>(v)!);
+                v => JsonConvert.DeserializeObject<List<string?>>(v) ?? new List<string?>());
             auditLog.Property(al => al.OldValues).HasConversion(
                 v => JsonConvert.SerializeObject(v),
-                v => JsonConvert.DeserializeObject<List<string>>(v)!);
+                v => JsonConvert.DeserializeObject<List<string?>>(v) ?? new List<string?>());
         });
     }
 

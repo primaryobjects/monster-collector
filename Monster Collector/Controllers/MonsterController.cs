@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Infrastructure;
 using System.Collections.Generic;
+using Monster_Collector.Managers;
 
 public class CreateModel
 {
@@ -9,8 +10,10 @@ public class CreateModel
 
 [Route("api/monster")]
 [ApiController]
-public class MonsterController : ControllerBase
+public class MonsterController(MonsterFactory monsterFactory) : ControllerBase
 {
+    private readonly MonsterFactory monsterFactory = monsterFactory;
+
     [HttpPut("{id}")]
     public IActionResult UpdateMonster(string id, Monster monster)
     {
@@ -37,9 +40,7 @@ public class MonsterController : ControllerBase
         var names = MonsterManager.Names();
 
         // Generate a new monster.
-        var monster = new Monster();
-        monster.GenerateNameDescription(names, model.Prompt!);
-        monster.GenerateImage();
+        var monster = monsterFactory.Create(names, model.Prompt);
 
         // Save the monster.
         MonsterManager.Update(monster);

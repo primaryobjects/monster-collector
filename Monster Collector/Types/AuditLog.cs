@@ -7,9 +7,9 @@ public class AuditLog
     public string? TableName { get; set; }
     public string? ActionType { get; set; }
     public string KeyValues { get; set; } = "";
-    public List<string> OldValues { get; set; } = [];
-    public List<string> NewValues { get; set; } = [];
-    public List<string> ChangedColumns { get; set; } = [];
+    public List<string?> OldValues { get; set; } = new();
+    public List<string?> NewValues { get; set; } = new();
+    public List<string> ChangedColumns { get; set; } = new();
     public DateTime DateChanged { get; set; }
 
     public AuditLog()
