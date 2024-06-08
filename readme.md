@@ -77,7 +77,7 @@ Deletes a specific monster by Id.
 
 ## Tech Stack
 
-- VSCode
+- Visual Studio Code
 - C# .NET 8.0
 - MVC
 - Razor
